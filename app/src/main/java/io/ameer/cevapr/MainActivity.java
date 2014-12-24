@@ -6,21 +6,38 @@ import android.net.*;
 import android.os.*;
 import android.view.*;
 import android.webkit.*;
+import android.widget.*;
 
 public class MainActivity extends Activity 
 {
 	WebView myWebView;
-	
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-		myWebView = (WebView) findViewById(R.id.webview);
-		WebSettings webSettings = myWebView.getSettings();
-		webSettings.setJavaScriptEnabled(true);
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) 
+	{
+		super.onCreate(savedInstanceState);
+
+		this.getWindow().requestFeature(Window.FEATURE_PROGRESS);
+		setContentView(R.layout.main );
+
+		getWindow().setFeatureInt( Window.FEATURE_PROGRESS, Window.PROGRESS_VISIBILITY_ON); 
+
+		myWebView = (WebView) findViewById( R.id.webview );
+		myWebView.getSettings().setJavaScriptEnabled(true);
 		myWebView.setWebViewClient(new MyWebViewClient());
 		myWebView.loadUrl("http://ameer.io/");
-    }
+
+		final Activity MyActivity = this;
+		myWebView.setWebChromeClient(new WebChromeClient() {
+				public void onProgressChanged(WebView view, int progress)
+				{
+					MyActivity.setTitle("Loading...");
+					MyActivity.setProgress(progress * 100);
+					if(progress == 100)
+						MyActivity.setTitle(R.string.app_name);
+				}
+			});
+	}
 	
 	@Override
     public void onBackPressed() {
@@ -30,7 +47,7 @@ public class MainActivity extends Activity
             super.onBackPressed();
         }
     }
-	
+
 	private class MyWebViewClient extends WebViewClient {
 		@Override
 		public boolean shouldOverrideUrlLoading(WebView view, String url) {
