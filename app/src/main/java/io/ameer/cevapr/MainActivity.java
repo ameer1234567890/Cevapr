@@ -25,7 +25,7 @@ public class MainActivity extends Activity
 		myWebView = (WebView) findViewById( R.id.webview );
 		myWebView.getSettings().setJavaScriptEnabled(true);
 		myWebView.setWebViewClient(new MyWebViewClient());
-		myWebView.loadUrl("http://ameer.io/");
+		myWebView.loadUrl("https://ameer.io/");
 
 		final Activity MyActivity = this;
 		myWebView.setWebChromeClient(new WebChromeClient() {
