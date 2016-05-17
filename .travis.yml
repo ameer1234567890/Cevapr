@@ -5,6 +5,9 @@ android:
     - build-tools-23.0.3
     - android-23
     - platform-tools
+    - extra-android-m2repository
+  licenses:
+    - android-sdk-license-.+
 
 sudo: false
 
@@ -13,9 +16,6 @@ before_script:
 
 script:
   - ./gradlew assembleDebug --stacktrace
-
-after_script:
-  - cat /home/travis/build/ameer1234567890/Cevapr/app/build/outputs/lint-results.xml
 
 deploy:
   provider: releases
