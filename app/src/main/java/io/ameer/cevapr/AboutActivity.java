@@ -1,12 +1,15 @@
 package io.ameer.cevapr;
 
-import android.app.*;
-import android.content.*;
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
-import android.os.*;
-import android.view.*;
-import android.webkit.*;
+import android.os.Build;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.webkit.WebView;
 
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -15,9 +18,9 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-public class MainActivity extends BaseActivity {
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
+public class AboutActivity extends BaseActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
@@ -28,11 +31,11 @@ public class MainActivity extends BaseActivity {
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.header)
                 .build();
+
         new DrawerBuilder().withSelectedItem(-1)
                 .withAccountHeader(headerResult)
                 .withActivity(this)
                 .withToolbar(myToolbar)
-                .withSliderBackgroundColor(Color.DKGRAY)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIdentifier(0),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_about).withIdentifier(1)
@@ -40,29 +43,24 @@ public class MainActivity extends BaseActivity {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        switch((int) drawerItem.getIdentifier()){
-                            case 1:
-                                Intent myIntent = new Intent(MyActivity, AboutActivity.class);
+                        switch((int) drawerItem.getIdentifier()) {
+                            case 0:
+                                Intent myIntent = new Intent(MyActivity, MainActivity.class);
                                 startActivity(myIntent);
                                 break;
                         }
                         return false;
                     }
+
                 })
                 .build();
 
         WebView myWebView = (WebView) findViewById(R.id.webview);
-		myWebView.getSettings().setJavaScriptEnabled(true);
-		myWebView.setWebViewClient(new MyWebViewClient());
-		myWebView.loadUrl("https://ameer.io/");
-		myWebView.setWebChromeClient(new WebChromeClient());
-	}
+        myWebView.setWebViewClient(new MyWebViewClient());
+        int versionCode = BuildConfig.VERSION_CODE;
+        String versionName = BuildConfig.VERSION_NAME;
+        String detailVersion = versionName + " [" + versionCode + "]";
+        myWebView.loadData(String.format(getString(R.string.text_about), detailVersion), "text/html", "UTF-8");
 
-    @Override
-    public void onBackPressed(){
-        Intent a = new Intent(Intent.ACTION_MAIN);
-        a.addCategory(Intent.CATEGORY_HOME);
-        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(a);
     }
 }

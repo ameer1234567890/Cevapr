@@ -10,10 +10,10 @@ android {
 
     defaultConfig {
         applicationId "io.ameer.cevapr"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 23
-        versionCode 5
-        versionName "1.4"
+        versionCode 6
+        versionName "1.5.0"
     }
 	
     signingConfigs {
@@ -29,10 +29,14 @@ android {
         release {
             signingConfig signingConfigs.release
             minifyEnabled false
+            resValue "string", "app_name", "Cevapr"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             minifyEnabled false
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-DEBUG"
+            resValue "string", "app_name", "Cevapr debug"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -40,4 +44,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile('com.mikepenz:materialdrawer:5.2.5@aar') {
+        transitive = true
+    }
 }
