@@ -36,6 +36,7 @@ public class AboutActivity extends BaseActivity {
                 .withAccountHeader(headerResult)
                 .withActivity(this)
                 .withToolbar(myToolbar)
+                .withSliderBackgroundColor(Color.DKGRAY)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIdentifier(0),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_about).withIdentifier(1)
