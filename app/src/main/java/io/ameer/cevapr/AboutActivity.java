@@ -3,12 +3,9 @@ package io.ameer.cevapr;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.webkit.WebView;
 
 import com.mikepenz.materialdrawer.AccountHeader;
