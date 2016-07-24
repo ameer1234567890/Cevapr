@@ -12,8 +12,11 @@ android:
   licenses:
     - '.+'
 
-sudo: required
-dist: trusty
+sudo: false
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
 
 before_script:
   - chmod +x gradlew
