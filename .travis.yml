@@ -24,4 +24,4 @@ script:
   - java -version
 
 script:
-  - ./gradlew assemble
+  - ./gradlew assembleDebug
